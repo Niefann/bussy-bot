@@ -23,5 +23,5 @@ async def receive_message(client, message=discord.Message):
 		await message.channel.send('Pong! Time: {0} ms'.format(round(latency_ms, 2)))
 
 	if command('perish'):
-		await message.channel.send(file=discord.File('then_perish.jpg'))
+		await message.channel.send(file=discord.File('../img/then_perish.jpg'))
 		await client.close()

@@ -2,7 +2,7 @@ import json
 
 
 def __load_data():
-    f = open('.info', 'r')
+    f = open('../txt/.info', 'r')
     data = f.read()
     return json.loads(data)
 

@@ -23,13 +23,13 @@ async def receive_message(client, message=discord.Message):
 		await wiki(message)
 
 async def help(message):
-	f = open('help.txt', 'r')
+	f = open('../txt/help.txt', 'r')
 	mes = ''.join(f.readlines())
 	await message.channel.send(mes)
 
 
 async def infinite(message):
-	f = open('infinite.txt', 'r')
+	f = open('../txt/infinite.txt', 'r')
 	mes = "".join([line for line in f.readlines()])
 	await message.channel.send(mes)
 
