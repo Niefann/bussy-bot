@@ -15,7 +15,7 @@ async def receive_message(client, message=discord.Message):
 	if message.author.bot:
 		return
 
-	def command(c): return message.content.startswith('..{0}'.format(c))
+	def command(c): return message.content.startswith('..{0} '.format(c))
 
 	await messaging_general.receive_message(client, message)
 	await messaging_other.receive_message(client, message)

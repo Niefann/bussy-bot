@@ -18,7 +18,7 @@ async def ping(client, message):
 
 async def perish(client, message):
 	if message.author.id == info.get_creator_id():
-		await message.channel.send(file=discord.File('../img/then_perish.jpg'))
+		await message.channel.send(content='I die peacefully, father.', file=discord.File('../img/i_die_peacefully.jpg'))
 		await client.close()
 	else:
 		await message.channel.send(content='You can\'t kill me, bitch.', file=discord.File('../img/then_perish.jpg'))
@@ -30,3 +30,7 @@ async def perish(client, message):
 # ..dump (text channel)
 # dumps all messages into a text file, then sends the text file
 # might be wise to require server owner to approve it?
+
+# ..random [user]
+# sends a random message from the user, or if none is provided, a random message. ignores bot commands.
+# configure this with ..random-config
