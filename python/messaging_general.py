@@ -77,9 +77,8 @@ async def history(message):
 	
 
 	frequency = 0
-	print('Searching for phrase \"{0}\"'.format(phrase))
 	for channel in message.guild.text_channels:
-		print('Searching channel \"{0}\"'.format(channel.name))
+		print('Searching channel \"{0}\" for phrase \"{1}\"'.format(channel.name, phrase))
 		async for mes in channel.history(limit=None):
 			if mes.author is not who:
 				continue
