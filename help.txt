@@ -1,0 +1,24 @@
+```
+• My command prefix is '..'
+• Commands below surrounded with [] are optional
+• Commands below surrounded with () are required
+
+General
+
+• ..help
+	displays this help message
+• ..infinite
+	prints out the lyrics to the best song ever
+• ..history (user) (phrase)
+	search the server for the number of times someone has said something. WARNING: this will take a _long_ time
+• ..wiki [page]
+	provides a link to the Bussy Boppers wiki. Using the 'page' parameter will add that page to the link (if it exists)
+
+Other
+
+• ..ping
+	displays network latency with me
+• ..perish
+	then perish.
+
+```

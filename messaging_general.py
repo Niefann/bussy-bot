@@ -23,7 +23,8 @@ async def receive_message(client, message=discord.Message):
 		await wiki(message)
 
 async def help(message):
-	mes = '``` General\n\n•My command prefix is \'..\'\n•..help: displays help message\n•..infinite: prints out the lyrics to the best song ever\n•..history [user] [phrase]: search the server for the number of times someone has said something. WARNING: this will take a _long_ time```'
+	f = open('help.txt', 'r')
+	mes = ''.join(f.readlines())
 	await message.channel.send(mes)
 
 
@@ -34,8 +35,9 @@ async def infinite(message):
 
 
 async def invite(message):
-	invite_url = info.get_invite_url()
-	await message.channel.send('Thanks for asking! You can invite me here:\n{0}'.format(invite_url))
+	# invite_url = info.get_invite_url()
+	# await message.channel.send('Thanks for asking! You can invite me here:\n{0}'.format(invite_url))
+	await message.channel.send('(disabled)')
 
 
 async def wiki(message):
@@ -56,7 +58,6 @@ async def wiki(message):
 
 
 async def history(message):
-	# ..history @Burst54
 	parts = message.content.split()
 	if len(parts) < 3:
 		await message.channel.send('Command must be in the format: `..history [user] [phrase]`')
@@ -69,12 +70,12 @@ async def history(message):
 	copy.reverse()
 	phrase = ' '.join(copy)
 
-	await message.channel.send('Hang on while I take a look around the server!')
+	sent_message = await message.channel.send('Hang on while I take a look around the server!')
 	start = datetime.datetime.now()
 	who = discord.utils.find(
 		lambda u: u.mention == parts[1], message.guild.members)
 	
-	# TODO: replace message that says "hang on"
+
 	frequency = 0
 	print('Searching for phrase \"{0}\"'.format(phrase))
 	for channel in message.guild.text_channels:
@@ -87,4 +88,4 @@ async def history(message):
 				frequency += 1
 	timespan = datetime.datetime.now() - start
 	print('Took {0}.'.format(timespan))
-	await message.channel.send('{0} used the phrase \"{1}\" {2} times!'.format(who.mention, phrase, frequency))
+	sent_message.edit(content='{0} used the phrase \"{1}\" {2} times!'.format(who.mention, phrase, frequency))
