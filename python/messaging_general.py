@@ -80,7 +80,7 @@ async def history(message):
 	for channel in message.guild.text_channels:
 		print('Searching channel \"{0}\" for phrase \"{1}\"'.format(channel.name, phrase))
 		async for mes in channel.history(limit=None):
-			if mes.author is not who:
+			if mes.author is not who or mes.content.startswith('..'):
 				continue
 			if phrase.lower() in mes.content.lower() and mes is not message:
 				print(mes.content)
