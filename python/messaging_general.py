@@ -44,9 +44,8 @@ async def wiki(message):
 	link = 'https://bussybopperslore.fandom.com/wiki/'
 	parts = message.content.split()
 
-	parts.reverse()
-	parts.pop()
-	parts.reverse()
+	parts = parts[1:]
+	parts = list(map(lambda a : a.capitalize(), parts))
 	attempted_suffix = '_'.join(parts)
 	suffix = 'Bussy_Boppers_Wiki'
 	if len(parts) > 0:
@@ -63,12 +62,7 @@ async def history(message):
 		await message.channel.send('Command must be in the format: `..history [user] [phrase]`')
 		return
 
-	copy = parts.copy()
-	copy.reverse()
-	copy.pop()
-	copy.pop()
-	copy.reverse()
-	phrase = ' '.join(copy)
+	phrase = ' '.join(parts[2:])
 
 	sent_message = await message.channel.send('Hang on while I take a look around the server!')
 	start = datetime.datetime.now()
@@ -83,8 +77,9 @@ async def history(message):
 			if mes.author is not who or mes.content.startswith('..'):
 				continue
 			if phrase.lower() in mes.content.lower() and mes is not message:
-				print(mes.content)
-				frequency += 1
+				count = mes.content.lower().count(phrase.lower())
+				print('{0} ({1})'.format(mes.content, count))
+				frequency += count
 	timespan = datetime.datetime.now() - start
 	print('Took {0}.'.format(timespan))
 	await sent_message.edit(content='{0} used the phrase \"{1}\" {2} times!'.format(who.mention, phrase, frequency))
