@@ -1,14 +1,15 @@
 import discord
+import info
 import requests
 
 async def receive_message(client, message=discord.Message):
 	def command(c): return message.content.startswith('..{0}'.format(c))
 
 	if command('ping'):
-		ping(client, message)
+		await ping(client, message)
 
 	if command('perish'):
-		perish(client, message)
+		await perish(client, message)
 		
 
 async def ping(client, message):
@@ -16,8 +17,11 @@ async def ping(client, message):
 	await message.channel.send('Pong! Time: {0} ms'.format(round(latency_ms, 2)))
 
 async def perish(client, message):
-	await message.channel.send(file=discord.File('../img/then_perish.jpg'))
-	await client.close()
+	if message.author.id == info.get_creator_id():
+		await message.channel.send(file=discord.File('../img/then_perish.jpg'))
+		await client.close()
+	else:
+		await message.channel.send(content='You can\'t kill me, bitch.', file=discord.File('../img/then_perish.jpg'))
 
 # ..vision (image link)
 # ..vision (image)

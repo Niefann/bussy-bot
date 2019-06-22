@@ -68,6 +68,8 @@ async def history(message):
 	start = datetime.datetime.now()
 	who = discord.utils.find(
 		lambda u: u.mention == parts[1], message.guild.members)
+	if who is None:
+		await sent_message.edit(content='Oops! There was a problem with the search. Please try again.', delete_after=10.0)
 	
 
 	frequency = 0
