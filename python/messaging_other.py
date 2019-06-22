@@ -34,3 +34,10 @@ async def perish(client, message):
 # ..random [user]
 # sends a random message from the user, or if none is provided, a random message. ignores bot commands.
 # configure this with ..random-config
+
+# ..random-config
+# pops up a list (like FredBoat) of options.
+# 1. Exclude channel - excludes a channel from the random search
+# 2. Include channel - includes a channel from the random search
+# 3. Exclude user - excludes a user from the random search
+# 4. Include user - includes a user from the random search
