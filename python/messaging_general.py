@@ -88,4 +88,4 @@ async def history(message):
 				frequency += 1
 	timespan = datetime.datetime.now() - start
 	print('Took {0}.'.format(timespan))
-	sent_message.edit(content='{0} used the phrase \"{1}\" {2} times!'.format(who.mention, phrase, frequency))
+	await sent_message.edit(content='{0} used the phrase \"{1}\" {2} times!'.format(who.mention, phrase, frequency))
