@@ -1,15 +1,11 @@
 import discord
 import messaging_general
 import messaging_other
-
-# Maisy has said 'penis' {number} times for server {server}
+import messaging_autonomous
 
 
 async def receive_message(client, message=discord.Message):
 	if message.author == client.user:
-		return
-
-	if not message.content.startswith('..'):
 		return
 
 	if message.author.bot:
@@ -19,3 +15,4 @@ async def receive_message(client, message=discord.Message):
 
 	await messaging_general.receive_message(client, message)
 	await messaging_other.receive_message(client, message)
+	await messaging_autonomous.receive_message(client, message)
