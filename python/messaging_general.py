@@ -70,7 +70,7 @@ async def history(message):
 	who = discord.utils.find(
 		lambda u: u.mention == parts[1], message.guild.members)
 	if who is None:
-		await sent_message.edit(content='Oops! There was a problem with the search. Please try again.', delete_after=10.0)
+		await sent_message.edit(content='Hey, programmer man, you suck. There was an error.', delete_after=10.0)
 	
 
 	frequency = 0
@@ -83,7 +83,8 @@ async def history(message):
 			mes_lower = mes.content.lower()
 			phrase_lower = phrase.lower()
 			if phrase_lower in mes_lower and mes is not message:
-				matches = re.findall(r'\b{0}\b'.format(phrase_lower), mes_lower)
+				escaped = re.escape(phrase_lower)
+				matches = re.findall(r'\b{0}\b'.format(escaped), mes_lower)
 				count = len(matches)
 				print('{0} ({1})'.format(mes.content, count))
 				frequency += count
