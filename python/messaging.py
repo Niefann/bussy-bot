@@ -13,6 +13,16 @@ async def receive_message(client, message=discord.Message):
 
 	def command(c): return message.content.startswith('..{0} '.format(c))
 
-	await messaging_general.receive_message(client, message)
-	await messaging_other.receive_message(client, message)
-	await messaging_autonomous.receive_message(client, message)
+	# return if consumed. prevents intersections of commands (..history [] wig)
+
+	consumed = await messaging_general.receive_message(client, message)
+	if consumed:
+		return
+
+	consumed = await messaging_other.receive_message(client, message)
+	if consumed:
+		return
+
+	consumed = await messaging_autonomous.receive_message(client, message)
+	if consumed:
+		return

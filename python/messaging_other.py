@@ -7,9 +7,11 @@ async def receive_message(client, message=discord.Message):
 
 	if command('ping'):
 		await ping(client, message)
+		return True
 
 	if command('perish'):
 		await perish(client, message)
+		return True
 		
 
 async def ping(client, message):

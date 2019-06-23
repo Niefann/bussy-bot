@@ -10,18 +10,23 @@ async def receive_message(client, message=discord.Message):
 
 	if command('infinite'):
 		await infinite(message)
+		return True
 
 	if command('history'):
 		await history(message)
+		return True
 
 	if command('invite'):
 		await invite(message)
+		return True
 
 	if command('help'):
 		await help(message)
+		return True
 
 	if command('wiki'):
 		await wiki(message)
+		return True
 
 async def help(message):
 	f = open('../txt/help.txt', 'r')
