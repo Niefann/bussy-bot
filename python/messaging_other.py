@@ -31,13 +31,13 @@ async def perish(client, message):
 # dumps all messages into a text file, then sends the text file
 # might be wise to require server owner to approve it?
 
-# ..random [user]
+# ..quote [user]
 # sends a random message from the user, or if none is provided, a random message. ignores bot commands.
-# configure this with ..random-config
+# configure this with ..quote-config
 
-# ..random-config
+# ..quote-config
 # pops up a list (like FredBoat) of options.
-# 1. Exclude channel - excludes a channel from the random search
-# 2. Include channel - includes a channel from the random search
-# 3. Exclude user - excludes a user from the random search
-# 4. Include user - includes a user from the random search
+# 1. Exclude channel - excludes a channel from the quote search
+# 2. Include channel - includes a channel from the quote search
+# 3. Exclude user - excludes a user from the quote search
+# 4. Include user - includes a user from the quote search

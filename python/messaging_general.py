@@ -2,6 +2,7 @@ import discord
 import info
 import datetime
 import requests
+import re
 
 
 async def receive_message(client, message=discord.Message):
@@ -78,8 +79,12 @@ async def history(message):
 		async for mes in channel.history(limit=None):
 			if mes.author is not who or mes.content.startswith('..'):
 				continue
-			if phrase.lower() in mes.content.lower() and mes is not message:
-				count = mes.content.lower().count(phrase.lower())
+
+			mes_lower = mes.content.lower()
+			phrase_lower = phrase.lower()
+			if phrase_lower in mes_lower and mes is not message:
+				matches = re.findall(r'\b{0}\b'.format(phrase_lower), mes_lower)
+				count = len(matches)
 				print('{0} ({1})'.format(mes.content, count))
 				frequency += count
 	timespan = datetime.datetime.now() - start
