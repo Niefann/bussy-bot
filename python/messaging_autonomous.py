@@ -109,5 +109,6 @@ async def epic(message):
 	may_may = mycache.get_channel_with_name('may_may')
 
 	if message.channel.id == may_may.get('id') and message.author.id == matt.get('id'):
-		epic_list = ['this is epic!', 'wow, very cool!', 'very epic, matt!']
-		await message.channel.send(random.choice(epic_list))
+		if message.attachments or 'http' in message.content:
+			epic_list = ['this is epic!', 'wow, very cool!', 'very epic, matt!']
+			await message.channel.send(random.choice(epic_list))
