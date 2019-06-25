@@ -100,6 +100,10 @@ async def enable_disable_autos(message_split, message):
 async def epic(message):
 	# may-may
 	# replace with cache searching later
-	if message.channel.id == 549069778321670164 and message.author.id == 134357630578589696:
+	mycache = cache.Cache(message.guild.id)
+	matt = mycache.get_member_with_tag('Xenntric')
+	may_may = mycache.get_channel_with_name('may_may')
+	
+	if message.channel.id == may_may.get('id') and message.author.id == matt.get('id'):
 		epic_list = ['this is epic!', 'wow, very cool!', 'very epic, matt!']
 		await message.channel.send(random.choice(epic_list))

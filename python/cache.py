@@ -86,3 +86,15 @@ class Cache():
 		f = self.__get_file('w')
 		f.write(json.dumps(data))
 		f.close()
+
+	def get_member_with_tag(self, discord_tag):
+		data = self.__load_data()
+		members = data['members']
+		match = filter(lambda m: m.get('tag').lower() == discord_tag.lower(), members)
+		return match
+
+	def get_channel_with_name(self, channel_name):
+		data = self.__load_data()
+		channels = data['channels']
+		match = filter(lambda c: channel_name.lower() in c.get('name').lower(), channels)
+		return match
