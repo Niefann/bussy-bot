@@ -72,10 +72,17 @@ async def history(message):
 
 	sent_message = await message.channel.send('Hang on while I take a look around the server!')
 	start = datetime.datetime.now()
+	if '!' not in parts[1]:
+		print('no \"!\" in mention. adding it now.')
+		split_mention = parts[1].split('@')
+		parts[1] = '@!'.join(split_mention)
+		print(parts[1])
+
 	who = discord.utils.find(
 		lambda u: u.mention == parts[1], message.guild.members)
 	if who is None:
 		await sent_message.edit(content='Hey, programmer man, you suck. There was an error.', delete_after=10.0)
+		return True
 	
 
 	frequency = 0

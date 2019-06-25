@@ -1,5 +1,6 @@
 import discord
 import re
+import random
 import cache
 
 # autonomous responses that are not triggered by a '..' command.
@@ -92,3 +93,13 @@ async def enable_disable_autos(message_split, message):
 		await message.channel.send('{0}d command \"{1}\".'.format('enable' if enable else 'disable', message_split[1]))
 	else:
 		await message.channel.send('Auto not recognized. Autos are: {0}'.format(all_autos))
+
+
+# every time matt sends a message in may-may, the bot says
+# 'this is epic!' or 'very epic, matt!'
+async def epic(message):
+	# may-may
+	# replace with cache searching later
+	if message.channel.id == 549069778321670164 and message.author.id == 134357630578589696:
+		epic_list = ['this is epic!', 'wow, very cool!', 'very epic, matt!']
+		await message.channel.send(random.choice(epic_list))
