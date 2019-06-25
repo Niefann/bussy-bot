@@ -46,7 +46,7 @@ async def wig(message):
 
 async def barely_know_her(message_split, message):
 	mycache = cache.Cache(message.guild.id)
-	if 'peet-zer' not in mycache.get_enabled_autos():
+	if 'peet-zer' not in mycache.get_enabled_autos() or len(message_split) == 0:
 		return False
 # 'i barely know her' added by Matt Bowes, 24 June 2019
 # pray for him, he did not fork the repo

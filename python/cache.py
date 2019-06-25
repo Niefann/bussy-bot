@@ -37,8 +37,7 @@ class Cache():
 		f.close()
 
 
-	def refresh(self):
-		client = main.get_client()
+	def refresh(self, client):
 		for guild in client.guilds:
 			print('Refreshing cache for guild {0}...'.format(guild.name))
 			self.id = guild.id
@@ -100,12 +99,12 @@ class Cache():
 	def get_member_with_tag(self, discord_tag):
 		data = self.__load_data()
 		members = data['members']
-		match = filter(lambda m: m.get('tag').lower() == discord_tag.lower(), members)
+		match = list(filter(lambda m: m.get('tag').lower() == discord_tag.lower(), members))[0]
 		return match
 
 
 	def get_channel_with_name(self, channel_name):
 		data = self.__load_data()
 		channels = data['channels']
-		match = filter(lambda c: channel_name.lower() in c.get('name').lower(), channels)
+		match = list(filter(lambda c: channel_name.lower() in c.get('name').lower(), channels))[0]
 		return match

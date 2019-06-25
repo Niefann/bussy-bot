@@ -11,7 +11,7 @@ class DiscordClient(discord.Client):
 		now = datetime.datetime.now()
 		print('Created at {0}!'.format(now.strftime('%H:%M:%S')))
 		mycache = cache.Cache(0)
-		mycache.refresh()
+		mycache.refresh(self)
 		print('Cache refreshed.')
 
 
