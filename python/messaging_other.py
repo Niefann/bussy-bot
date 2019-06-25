@@ -18,6 +18,7 @@ async def ping(client, message):
 	latency_ms = client.latency * 1000
 	await message.channel.send('Pong! Time: {0} ms'.format(round(latency_ms, 2)))
 
+
 async def perish(client, message):
 	if message.author.id == info.get_creator_id():
 		await message.channel.send(content='I die peacefully, father.', file=discord.File('../img/i_die_peacefully.jpg'))

@@ -21,6 +21,7 @@ def get_client_id():
     data = __load_data()
     return data.get('client_id')
 
+
 def get_creator_id():
     data = __load_data()
     return data.get('creator_id')

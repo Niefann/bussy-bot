@@ -11,11 +11,13 @@ class DiscordClient(discord.Client):
 		now = datetime.datetime.now()
 		print('Created at {0}!'.format(now.strftime('%H:%M:%S')))
 		mycache = cache.Cache(0)
-		mycache.refresh(self)
+		mycache.refresh()
 		print('Cache refreshed.')
+
 
 	async def on_message(self, message):
 		await messaging.receive_message(self, message)
+
 
 	async def on_guild_join(self, guild):
 		# initialize cache
@@ -25,8 +27,10 @@ class DiscordClient(discord.Client):
 		general = discord.utils.find(lambda x: x.name == 'general', guild.text_channels)
 		await general.send('Hi, Boppers!')
 
+
 def get_client():
 	return CLIENT
+
 
 def main():
 	client = DiscordClient()

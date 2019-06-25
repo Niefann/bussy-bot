@@ -28,6 +28,7 @@ async def receive_message(client, message=discord.Message):
 		await wiki(message)
 		return True
 
+
 async def help(message):
 	f = open('../txt/help.txt', 'r')
 	mes = ''.join(f.readlines())

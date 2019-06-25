@@ -29,6 +29,9 @@ async def receive_message(client, message=discord.Message):
 	consumed = await queen(message_lower, message)
 	if consumed: return True
 
+	consumed = await epic(message)
+	if consumed: return True
+
 
 async def wig(message):
 	mycache = cache.Cache(message.guild.id)
@@ -69,6 +72,7 @@ async def queen(message_lower, message):
 		await message.channel.send('QUEEN')
 		return True
 
+
 async def enable_disable_autos(message_split, message):
 	# ternary operator's don't work. fix it
 	mycache = cache.Cache(message.guild.id)
@@ -103,7 +107,7 @@ async def epic(message):
 	mycache = cache.Cache(message.guild.id)
 	matt = mycache.get_member_with_tag('Xenntric')
 	may_may = mycache.get_channel_with_name('may_may')
-	
+
 	if message.channel.id == may_may.get('id') and message.author.id == matt.get('id'):
 		epic_list = ['this is epic!', 'wow, very cool!', 'very epic, matt!']
 		await message.channel.send(random.choice(epic_list))

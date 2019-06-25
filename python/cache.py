@@ -8,6 +8,7 @@ class Cache():
 	def __init__(self, guild_id):
 		self.id = guild_id
 
+
 	def initialize(self, guild):
 		try:
 			os.mkdir('../cache/{0}'.format(self.id))
@@ -35,8 +36,11 @@ class Cache():
 		f.write(json.dumps(data))
 		f.close()
 
-	def refresh(self, client):
+
+	def refresh(self):
+		client = main.get_client()
 		for guild in client.guilds:
+			print('Refreshing cache for guild {0}...'.format(guild.name))
 			self.id = guild.id
 			f = self.__get_file('r+')
 			jsonstr = f.read()
@@ -65,9 +69,12 @@ class Cache():
 					})
 			f.write(json.dumps(data))
 			f.close()
+			print('Done.')
+
 
 	def __get_file(self, how):
 		return open('../cache/{0}/data.json'.format(self.id), how)
+
 
 	def __load_data(self):
 		client = main.get_client()
@@ -76,9 +83,11 @@ class Cache():
 		f.close()
 		return json.loads(data)
 
+
 	def get_enabled_autos(self):
 		data = self.__load_data()
 		return set(data.get('enabled_autos'))
+
 
 	def set_enabled_autos(self, enabled):
 		data = self.__load_data()
@@ -87,11 +96,13 @@ class Cache():
 		f.write(json.dumps(data))
 		f.close()
 
+
 	def get_member_with_tag(self, discord_tag):
 		data = self.__load_data()
 		members = data['members']
 		match = filter(lambda m: m.get('tag').lower() == discord_tag.lower(), members)
 		return match
+
 
 	def get_channel_with_name(self, channel_name):
 		data = self.__load_data()
