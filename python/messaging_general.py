@@ -27,6 +27,8 @@ async def receive_message(client, message=discord.Message):
 	if command('wiki'):
 		await wiki(message)
 		return True
+	
+	return False
 
 
 async def help(message):

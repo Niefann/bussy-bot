@@ -31,6 +31,8 @@ async def receive_message(client, message=discord.Message):
 
 	consumed = await epic(message)
 	if consumed: return True
+	
+	return False
 
 
 async def wig(message):
@@ -107,6 +109,9 @@ async def epic(message):
 	mycache = cache.Cache(message.guild.id)
 	matt = mycache.get_member_with_tag('Xenntric')
 	may_may = mycache.get_channel_with_name('may_may')
+
+	if matt is None or may_may is None:
+		return False
 
 	if message.channel.id == may_may.get('id') and message.author.id == matt.get('id'):
 		if message.attachments or 'http' in message.content:

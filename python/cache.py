@@ -98,13 +98,19 @@ class Cache():
 
 	def get_member_with_tag(self, discord_tag):
 		data = self.__load_data()
-		members = data['members']
-		match = list(filter(lambda m: m.get('tag').lower() == discord_tag.lower(), members))[0]
-		return match
+		members = data.get('members')
+		matches = list(filter(lambda m: m.get('tag').lower() == discord_tag.lower(), members))
+		if len(matches) > 0:
+			return matches[0]
+
+		return None
 
 
 	def get_channel_with_name(self, channel_name):
 		data = self.__load_data()
-		channels = data['channels']
-		match = list(filter(lambda c: channel_name.lower() in c.get('name').lower(), channels))[0]
-		return match
+		channels = data.get('channels')
+		matches = list(filter(lambda c: channel_name.lower() in c.get('name').lower(), channels))
+		if len(matches) > 0:
+			return matches[0]
+
+		return None
