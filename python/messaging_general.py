@@ -32,12 +32,14 @@ async def receive_message(client, message=discord.Message):
 async def help(message):
 	f = open('../txt/help.txt', 'r')
 	mes = ''.join(f.readlines())
+	f.close()
 	await message.channel.send(mes)
 
 
 async def infinite(message):
 	f = open('../txt/infinite.txt', 'r')
-	mes = "".join([line for line in f.readlines()])
+	mes = ''.join([line for line in f.readlines()])
+	f.close()
 	await message.channel.send(mes)
 
 
