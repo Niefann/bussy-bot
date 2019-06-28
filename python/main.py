@@ -3,6 +3,7 @@ import info
 import messaging
 import cache
 
+CLIENT = None
 
 class DiscordClient(discord.Client):
 	async def on_ready(self):
@@ -27,8 +28,14 @@ class DiscordClient(discord.Client):
 		await general.send('Hi, Boppers!')
 
 
+def get_client():
+	return CLIENT
+
+
 def main():
 	client = DiscordClient()
+	global CLIENT
+	CLIENT = client
 	client.run(info.get_token())
 
 
