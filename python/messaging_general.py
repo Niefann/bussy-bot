@@ -78,10 +78,8 @@ async def history(message):
 	sent_message = await message.channel.send('Hang on while I take a look around the server!')
 	start = datetime.datetime.now()
 	if '!' not in parts[1]:
-		print('no \"!\" in mention. adding it now.')
 		split_mention = parts[1].split('@')
 		parts[1] = '@!'.join(split_mention)
-		print(parts[1])
 
 	who = discord.utils.find(
 		lambda u: u.mention == parts[1], message.guild.members)
@@ -92,7 +90,6 @@ async def history(message):
 
 	frequency = 0
 	for channel in message.guild.text_channels:
-		print('Searching channel \"{0}\" for phrase \"{1}\"'.format(channel.name, phrase))
 		async for mes in channel.history(limit=None):
 			if mes.author is not who or mes.content.startswith('..'):
 				continue
@@ -103,8 +100,6 @@ async def history(message):
 				escaped = re.escape(phrase_lower)
 				matches = re.findall(r'\b{0}\b'.format(escaped), mes_lower)
 				count = len(matches)
-				print('{0} ({1})'.format(mes.content, count))
 				frequency += count
 	timespan = datetime.datetime.now() - start
-	print('Took {0}.'.format(timespan))
 	await sent_message.edit(content='{0} used the phrase \"{1}\" {2} times!'.format(who.mention, phrase, frequency))
