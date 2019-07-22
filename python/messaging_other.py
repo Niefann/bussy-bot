@@ -37,7 +37,6 @@ async def perish(client, message):
 async def do_refresh(client, message):
 	mycache = cache.Cache(message.guild.id)
 	burst = mycache.get_member_with_tag('Burst')
-	print(burst)
 
 	if burst is None or message.author.id != burst.get('id'):
 		await message.channel.send('Only mi papa can do that.')
