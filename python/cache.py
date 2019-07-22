@@ -99,7 +99,7 @@ class Cache():
 	def get_member_with_tag(self, discord_tag):
 		data = self.__load_data()
 		members = data.get('members')
-		matches = list(filter(lambda m: m.get('tag').lower() == discord_tag.lower(), members))
+		matches = list(filter(lambda m: discord_tag.lower() in m.get('tag').lower(), members))
 		if len(matches) > 0:
 			return matches[0]
 

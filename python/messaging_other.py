@@ -1,6 +1,7 @@
 import discord
 import info
 import requests
+import cache
 
 async def receive_message(client, message=discord.Message):
 	def command(c): return message.content.startswith('..{0}'.format(c))
@@ -11,6 +12,10 @@ async def receive_message(client, message=discord.Message):
 
 	if command('perish'):
 		await perish(client, message)
+		return True
+
+	if command('refresh'):
+		await do_refresh(client, message)
 		return True
 	
 	return False
@@ -27,6 +32,18 @@ async def perish(client, message):
 		await client.close()
 	else:
 		await message.channel.send(content='You can\'t kill me, bitch.', file=discord.File('../img/then_perish.jpg'))
+
+
+async def do_refresh(client, message):
+	mycache = cache.Cache(message.guild.id)
+	burst = mycache.get_member_with_tag('Burst')
+	print(burst)
+
+	if burst is None or message.author.id != burst.get('id'):
+		await message.channel.send('Only mi papa can do that.')
+	else:
+		mycache.refresh(client)
+		await message.channel.send('Done!')
 
 # ..vision (image link)
 # ..vision (image)
