@@ -42,33 +42,41 @@ class Cache():
 			print('Refreshing cache for guild {0}...'.format(guild.name))
 			self.id = guild.id
 			f = self.__get_file('r+')
-			jsonstr = f.read()
+			data = json.load(f)
 			f.close()
 			f = self.__get_file('w').close()
 			f = self.__get_file('r+')
-			data = json.loads(jsonstr)
-			if [m['id'] for m in data['members']] != [m.id for m in guild.members]:
-				data['members'] = []
-				for member in guild.members:
-					if member.bot:
-						continue
-					data['members'].append({
-						'id': member.id,
-						'mention': member.mention,
-						'tag': member.name,
-						'discriminator': member.discriminator
-					})
-
-			if [c['id'] for c in data['channels']] != [c.id for c in guild.text_channels]:
-				data['channels'] = []
-				for channel in guild.text_channels:
-					data['channels'].append({
-						'id': channel.id,
-						'name': channel.name
-					})
+			
+			self.__refresh_members(data, guild)
+			self.__refresh_channels(data, guild)
+			
 			f.write(json.dumps(data))
 			f.close()
 			print('Done.')
+
+	
+	def __refresh_members(self, data, guild):
+		if [m['id'] for m in data['members']] != [m.id for m in guild.members]:
+			data['members'] = []
+			for member in guild.members:
+				if member.bot:
+					continue
+				data['members'].append({
+					'id': member.id,
+					'mention': member.mention,
+					'tag': member.name,
+					'discriminator': member.discriminator
+				})
+
+
+	def __refresh_channels(self, data, guild):
+		if [c['id'] for c in data['channels']] != [c.id for c in guild.text_channels]:
+			data['channels'] = []
+			for channel in guild.text_channels:
+				data['channels'].append({
+					'id': channel.id,
+					'name': channel.name
+				})
 
 
 	def __get_file(self, how):

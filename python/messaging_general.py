@@ -1,5 +1,6 @@
 import discord
 import info
+import json
 import datetime
 import requests
 import re
@@ -27,6 +28,10 @@ async def receive_message(client, message=discord.Message):
 	if command('wiki'):
 		await wiki(message)
 		return True
+
+	if command('birthdays'):
+		await birthday(message)
+		return True
 	
 	return False
 
@@ -49,6 +54,34 @@ async def invite(message):
 	# invite_url = info.get_invite_url()
 	# await message.channel.send('Thanks for asking! You can invite me here:\n{0}'.format(invite_url))
 	await message.channel.send('(disabled)')
+
+
+async def birthday(message):
+	message_split = message.content.lower().split(' ')
+	if len(message_split) > 2:
+		await message.channel.send('Command must be in format: `..birthdays [\"next\"]`')
+		return
+
+	f = open('../txt/birthdays.json', 'r')
+	bdata = json.load(f)
+	f.close()
+
+	sorted = []
+	now = datetime.datetime.now()
+	bdata.sort(key=lambda d : datetime.datetime.strptime(d.get('date'), '%B %d %Y') - now)
+
+	# get next
+	if len(message_split) == 2:
+		await message.channel.send('{}\'s next birthday is on {}! Wish them well!'.format(bdata[0].get('name'), bdata[0].get('date')))
+	else:
+		buffer = '```'
+		for entry in bdata:
+			if entry.get('name') == 'Bussy Bot':
+				buffer += 'My next birthday is on {}!\n'.format(entry.get('date'))
+			else:
+				buffer += '{}\'s next birthday is on {}!\n'.format(entry.get('name'), entry.get('date'))
+		buffer += '```'
+		await message.channel.send(buffer)
 
 
 async def wiki(message):
