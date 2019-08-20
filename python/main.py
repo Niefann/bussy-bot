@@ -6,6 +6,8 @@ import cache
 CLIENT = None
 
 class DiscordClient(discord.Client):
+	restart_on_kill = False
+
 	async def on_ready(self):
 		import datetime
 		now = datetime.datetime.now()
@@ -37,6 +39,12 @@ def main():
 	global CLIENT
 	CLIENT = client
 	client.run(info.get_token())
+	# ..restart has been called
+	if client.restart_on_kill:
+		print('restarting')
+		import subprocess
+		subprocess.call(['../restart.sh'])
+		pass
 
 
 if __name__ == '__main__':

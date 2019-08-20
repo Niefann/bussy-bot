@@ -17,6 +17,10 @@ async def receive_message(client, message=discord.Message):
 	if command('refresh'):
 		await do_refresh(client, message)
 		return True
+
+	if command('restart'):
+		await do_restart(client, message)
+		return True
 	
 	return False
 		
@@ -43,6 +47,17 @@ async def do_refresh(client, message):
 	else:
 		mycache.refresh(client)
 		await message.channel.send('Done!')
+
+
+async def do_restart(client, message):
+	# ../restart.sh
+	if message.author.id == info.get_creator_id():
+		await message.channel.send(content='I die peacefully, father.', file=discord.File('../img/i_die_peacefully.jpg'))
+		client.restart_on_kill = True
+		await client.close()
+	else:
+		await message.channel.send(content='You can\'t kill me, bitch.', file=discord.File('../img/then_perish.jpg'))
+	pass
 
 # ..vision (image link)
 # ..vision (image)
