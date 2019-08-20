@@ -84,7 +84,7 @@ class Cache():
 
 
 	def __load_data(self):
-		client = main.get_client()
+		#client = main.get_client()
 		f = self.__get_file('r')
 		data = f.read()
 		f.close()
@@ -114,11 +114,7 @@ class Cache():
 		return None
 
 
-	def get_channel_with_name(self, channel_name):
-		data = self.__load_data()
-		channels = data.get('channels')
-		matches = list(filter(lambda c: channel_name.lower() in c.get('name').lower(), channels))
-		if len(matches) > 0:
-			return matches[0]
-
-		return None
+	def get_channel_with_name(self, channel_name, client):
+		guild = discord.utils.find(lambda g: g.id == self.id, client.guilds)
+		match = discord.utils.get(guild.channels, name=channel_name)
+		return match

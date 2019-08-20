@@ -66,7 +66,6 @@ async def birthday(message):
 	bdata = json.load(f)
 	f.close()
 
-	sorted = []
 	now = datetime.datetime.now()
 	bdata.sort(key=lambda d : datetime.datetime.strptime(d.get('date'), '%B %d %Y') - now)
 

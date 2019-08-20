@@ -2,8 +2,8 @@ import discord
 import info
 import messaging
 import cache
+import birthdayscheduler
 
-CLIENT = None
 
 class DiscordClient(discord.Client):
 	restart_on_kill = False
@@ -15,6 +15,7 @@ class DiscordClient(discord.Client):
 		mycache = cache.Cache(0)
 		mycache.refresh(self)
 		print('Cache refreshed.')
+		birthdayscheduler.start_scheduler(self)
 
 
 	async def on_message(self, message):
@@ -30,14 +31,8 @@ class DiscordClient(discord.Client):
 		await general.send('Hi, Boppers!')
 
 
-def get_client():
-	return CLIENT
-
-
 def main():
 	client = DiscordClient()
-	global CLIENT
-	CLIENT = client
 	client.run(info.get_token())
 	# ..restart has been called
 	if client.restart_on_kill:
