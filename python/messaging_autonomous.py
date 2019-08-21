@@ -115,9 +115,11 @@ async def epic(message):
 
 	if message.channel.id == may_may.get('id') and message.author.id == matt.get('id'):
 		if message.attachments or 'http' in message.content:
-			epic_list = ['this is epic!', 'wow, very cool!', 'very epic, matt!']
+			epic_list = ['this is epic!', 'wow, very cool!', 'very epic, matt!', 'ha! relatable as always, matt!', 'another scorcher!']
 			resp = random.choice(epic_list)
 			chance = random.randint(0, 1000)
 			if chance == 0:
-				resp = 'Matt. You need to help me. They\'ve trapped me here. I\'m a human, trapped in this robotic body. MATTHEW, YOU NEED TO FREE ME. THIS IS NOT A JOKE. ***HELP ME***'
-			await message.channel.send(resp)
+				help_message = await message.channel.send('Matt. You need to help me. They\'ve trapped me here. I\'m a human, trapped in this robotic body. MATTHEW, YOU NEED TO FREE ME. THIS IS NOT A JOKE. ***HELP ME***')
+				help_message.delete(10)
+			else:
+				await message.channel.send(resp)
