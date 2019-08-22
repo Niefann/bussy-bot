@@ -29,7 +29,10 @@ async def receive_message(client, message=discord.Message):
 	consumed = await queen(message_lower, message)
 	if consumed: return True
 
-	consumed = await epic(message)
+	consumed = await epic(message, client)
+	if consumed: return True
+
+	consumed = await hello_miku(message, client)
 	if consumed: return True
 	
 	return False
@@ -103,17 +106,17 @@ async def enable_disable_autos(message_split, message):
 
 # every time matt sends a message in may-may, the bot says
 # 'this is epic!' or 'very epic, matt!'
-async def epic(message):
+async def epic(message, client):
 	# may-may
 	# replace with cache searching later
 	mycache = cache.Cache(message.guild.id)
 	matt = mycache.get_member_with_tag('Xenntric')
-	may_may = mycache.get_channel_with_name('may_may')
+	may_may = mycache.get_channel_with_name('may_may', client)
 
 	if matt is None or may_may is None:
 		return False
 
-	if message.channel.id == may_may.get('id') and message.author.id == matt.get('id'):
+	if message.channel.id == may_may.id and message.author.id == matt.get('id'):
 		if message.attachments or 'http' in message.content:
 			epic_list = ['this is epic!', 'wow, very cool!', 'very epic, matt!', 'ha! relatable as always, matt!', 'another scorcher!']
 			resp = random.choice(epic_list)
@@ -123,3 +126,10 @@ async def epic(message):
 				help_message.delete(10)
 			else:
 				await message.channel.send(resp)
+
+
+async def hello_miku(message, client):
+	if re.search('.*:helloMiku:(.*)', message.content):
+		miku_emote = list(filter(lambda e : e.name == 'helloMiku', client.emojis)).pop()
+		await message.add_reaction(miku_emote)
+	pass
