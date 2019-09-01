@@ -141,7 +141,7 @@ async def history(message):
 	await sent_message.edit(content='{0} used the phrase \"{1}\" {2} times!'.format(who.mention, phrase, frequency))
 
 async def screenshare(message, client):
-	if message.author.voice.channel is None:
+	if message.author.voice is None:
 		await message.channel.send('You must be in a voice call to use this function.')
 	else:
 		link = 'https://discordapp.com/channels/{}/{}'.format(message.guild.id, message.author.voice.channel.id)
