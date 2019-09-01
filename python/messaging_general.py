@@ -32,6 +32,10 @@ async def receive_message(client, message=discord.Message):
 	if command('birthdays'):
 		await birthday(message)
 		return True
+
+	if command('screenshare'):
+		await screenshare(message, client)
+		return True
 	
 	return False
 
@@ -135,3 +139,10 @@ async def history(message):
 				frequency += count
 	timespan = datetime.datetime.now() - start
 	await sent_message.edit(content='{0} used the phrase \"{1}\" {2} times!'.format(who.mention, phrase, frequency))
+
+async def screenshare(message, client):
+	if message.author.voice.channel is None:
+		await message.channel.send('You must be in a voice call to use this function.')
+	else:
+		link = 'https://discordapp.com/channels/{}/{}'.format(message.guild.id, message.author.voice.channel.id)
+		await message.channel.send('Here you go! Click the link below to access the screenshare!\n{}'.format(link))

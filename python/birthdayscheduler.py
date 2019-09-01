@@ -6,7 +6,7 @@ scheduler = BackgroundScheduler()
 
 def start_scheduler(_client):
 	scheduler.start()
-	scheduler.add_job(job, 'interval', minutes=720, next_run_time=datetime.datetime.now(), kwargs={'client':_client})
+	scheduler.add_job(job, 'interval', minutes=360, next_run_time=datetime.datetime.now(), kwargs={'client':_client})
 	print('Scheduler started.')
 
 
