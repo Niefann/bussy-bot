@@ -145,8 +145,9 @@ async def screenshare(message, client):
 		await message.channel.send('You must be in a voice call to use this function.')
 	else:
 		# change to embed.
+		vc = message.author.voice.channel
 		link = 'https://discordapp.com/channels/{}/{}'.format(message.guild.id, message.author.voice.channel.id)
-		embed = discord.Embed(title='Screenshare link for {}'.format(message.channel.name), \
-			description='Here you go! [Click here]({}) to access the screensharing for {}!'.format(link, message.channel.name), \
+		embed = discord.Embed(title='Screenshare link for {}'.format(vc.name), \
+			description='Here you go! [Click here]({}) to access the screensharing for {}!'.format(link, vc.name), \
 			url=link)
 		await message.channel.send(embed=embed)
