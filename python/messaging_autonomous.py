@@ -35,6 +35,9 @@ async def receive_message(client, message=discord.Message):
 	consumed = await hello_miku(message, client)
 	if consumed: return True
 	
+	consumed = await (creeper)
+     	if consumed: return True
+	
 	return False
 
 
@@ -133,3 +136,15 @@ async def hello_miku(message, client):
 		miku_emote = list(filter(lambda e : e.name == 'helloMiku', client.emojis)).pop()
 		await message.add_reaction(miku_emote)
 	pass
+
+async def creeper(message):
+	mycache = cache.Cache(message.guild.id)
+	if 'creeper' not in mycache.get_enabled_autos():
+		return False
+	
+	creeper_match = re.search(r'\bcreeper\b', message.content.lower())
+	if creeper_match:
+		await message.channel.send('aw man')
+		return True
+
+     
